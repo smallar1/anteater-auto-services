@@ -1,0 +1,45 @@
+/* Full-page background wrapper */
+.home-page {
+  background-image: url('../images/Home.jpg'); /* Path to your background image */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Optional: Parallax effect */
+  min-height: 100vh; /* Ensure it covers the entire page */
+  width: 100%; /* Ensure full width */
+  position: relative;
+}
+
+.home {
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.mission-statement {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.mission-statement h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.mission-statement p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.mission-statement p:last-child {
+  margin-bottom: 0;
+} 

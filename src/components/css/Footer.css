@@ -1,0 +1,38 @@
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+footer .footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+footer a {
+  margin-top: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+
+footer img {
+  width: 100px;
+  height: auto;
+  margin-top: 10px;
+}
+
+footer .footer-phone-link {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+footer .footer-phone-link:hover {
+  text-decoration: underline;
+}

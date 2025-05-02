@@ -1,0 +1,144 @@
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo {
+  height: 35px;
+  width: auto;
+  margin-right: 0.5rem;
+  object-fit: contain;
+}
+
+.company-name {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffd200;
+  white-space: nowrap;
+}
+.company-name:hover {
+  color: #0064a4; 
+  cursor: pointer;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #333;
+  color: white;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffd700;
+}
+
+.book-online {
+  background-color: #ffd700;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.book-online:hover {
+  background-color: #ffed4a;
+  color: #333;
+} 
+
+/* Container for the dropdown */
+.login-dropdown {
+  position: relative;
+}
+
+.login-toggle {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0.5rem 2rem;
+  transition: color 0.3s ease;
+}
+
+.login-toggle:hover {
+  color: #ffed4a;
+}
+
+.login-form-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  transform: translateX(0%); 
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 5px;
+  padding: 1rem;
+  width: 250px;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Form styling */
+.login-form-dropdown form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.login-form-dropdown input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-form-dropdown button {
+  padding: 0.5rem;
+  background-color: #ffd200;
+  color: #333;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.login-form-dropdown button:hover {
+  background-color: #ffed4a;
+}
+
+.register-hint {
+  font-size: 0.85rem;
+  color: white;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.register-hint a {
+  color: #ffd200;
+  text-decoration: none;
+}
+
+.register-hint a:hover {
+  text-decoration: underline;
+}

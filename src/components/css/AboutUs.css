@@ -1,0 +1,65 @@
+/* Full-page background wrapper */
+.about-us-page {
+  background-image: url('../images/AboutUs.jpg'); /* If image is in public/images */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 4rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* About Us Container */
+.about-us-container {
+  max-width: 900px;
+  width: 90%;
+  margin: auto;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  position: relative;
+  z-index: 1;
+}
+
+/* Optional: overlay effect inside container */
+.about-us-container::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.05); /* Light overlay */
+  z-index: -1;
+  border-radius: 8px;
+}
+
+/* Heading styles */
+.about-us-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #2c3e50;
+}
+
+/* Content styling */
+.about-us-content {
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+
+.about-us-content h2 {
+  margin-top: 1.5rem;
+  color: #34495e;
+  font-size: 1.5rem;
+}
+
+.about-us-content p {
+  margin-bottom: 1rem;
+  color: #555;
+  text-align: justify;
+}
