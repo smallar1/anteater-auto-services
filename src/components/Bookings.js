@@ -19,6 +19,7 @@ function Booking() {
   };
 
   return (
+    <div className="booking-wrapper">
     <div className="booking-container" style={{ maxWidth: '400px', margin: '0 auto', padding: '1rem' }}>
       <h2>Book an Appointment</h2>
 
@@ -82,7 +83,7 @@ function Booking() {
           <label>Email</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
-          <div style={{ marginTop: '1rem' }}>
+          <div style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
             <p><strong>Service:</strong> {service}</p>
             <p><strong>Date:</strong> {date}</p>
             <p><strong>Time:</strong> {time}</p>
@@ -92,6 +93,7 @@ function Booking() {
           <button type="submit">Confirm Booking</button>
         </form>
       )}
+    </div>
     </div>
   );
 }

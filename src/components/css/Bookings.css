@@ -3,3 +3,92 @@
   color: #333;
   font-weight: bold;
 }
+
+.booking-container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.booking-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+.booking-container label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.booking-container input,
+.booking-container select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.booking-container button {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #ffd700;
+  border: none;
+  border-radius: 6px;
+  color: #333;
+  cursor: pointer;
+  margin-right: 0.75rem;
+  transition: background-color 0.2s ease;
+}
+
+.booking-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.booking-container button:hover:not(:disabled) {
+  background-color: #ffed4a;
+}
+
+.booking-container .selected {
+  background-color: #ffd700 !important;
+  font-weight: bold;
+  color: #333;
+  border-color: #ffc107;
+}
+
+.time-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.5rem;
+}
+
+.booking-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px); /* adjusts for navbar + footer */
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+
+.booking-container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  max-width: 500px;
+  width: 100%;
+  text-align: center; /* Center text inside */
+  font-family: 'Segoe UI', sans-serif;
+}
