@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/Services.css';
+import './Services.css';
 
 const servicesList = [
   {
@@ -46,7 +46,7 @@ const servicesList = [
 
 function Services() {
   return (
-    <div className="services-page"> {/* Wrap everything in services-page */}
+    <div className = "services-background">
       <div className="services-container">
         <h1>Our Services</h1>
         <div className="services-grid">
