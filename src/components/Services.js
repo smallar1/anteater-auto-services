@@ -1,5 +1,5 @@
 import React from 'react';
-import './Services.css';
+import './css/Services.css';
 
 const servicesList = [
   {
@@ -46,22 +46,24 @@ const servicesList = [
 
 function Services() {
   return (
-    <div className="services-container">
-      <h1>Our Services</h1>
-      <div className="services-grid">
-        {servicesList.map((service) => (
-          <div key={service.id} className="service-box">
-            <div className="service-content">
-              <div className="service-front">
-                <span className="service-icon">{service.icon}</span>
-                <h3>{service.title}</h3>
-              </div>
-              <div className="service-back">
-                <p>{service.description}</p>
+    <div className="services-page"> {/* Wrap everything in services-page */}
+      <div className="services-container">
+        <h1>Our Services</h1>
+        <div className="services-grid">
+          {servicesList.map((service) => (
+            <div key={service.id} className="service-box">
+              <div className="service-content">
+                <div className="service-front">
+                  <span className="service-icon">{service.icon}</span>
+                  <h3>{service.title}</h3>
+                </div>
+                <div className="service-back">
+                  <p>{service.description}</p>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

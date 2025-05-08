@@ -1,0 +1,5 @@
+.selected {
+  background-color: #ffd700 !important;
+  color: #333;
+  font-weight: bold;
+}
