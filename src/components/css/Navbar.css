@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 1rem 2rem;
+  padding: 0.75rem 2rem;
   background-color: #333;
   color: white;
   width: 100%;
@@ -39,26 +39,30 @@
   margin-top: 0.25rem;
 }
 
-
-/* logo and name */
 .logo-container {
   display: flex;
   align-items: center;
-  white-space: nowrap;
+  gap: 20rem; /* previously 0.5rem — increased for more spacing */
 }
 
 .logo {
-  height: 35px;
-  width: auto;
-  margin-right: 0.5rem;
+  height: 38px;
   object-fit: contain;
 }
 
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* ✅ Add this line to create space between logo and name */
+  text-decoration: none;
+}
+
 .company-name {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #ffd200;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 2;
+
 }
 
 .company-name:hover {
@@ -72,6 +76,7 @@
   font-size: 1.1rem;
   transition: color 0.3s ease;
   white-space: nowrap;
+  margin-top: 2px; /* only if needed */
 }
 
 .nav-link:hover {
