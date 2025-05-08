@@ -9,6 +9,8 @@ import Footer from './components/Footer';
 import Testimonials from './components/Testimonials';
 import Booking from './components/Bookings';
 import Register from './components/Register';
+import ProfileDashboard from './components/ProfileDashboard';
+
 import './App.css';
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/bookings" element={<Booking />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/account" element={<ProfileDashboard />} />
             {/* Insert other routes */}
           </Routes>
         </div>

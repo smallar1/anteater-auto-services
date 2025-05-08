@@ -42,7 +42,7 @@
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 20rem; /* previously 0.5rem — increased for more spacing */
+  gap: 20rem;
 }
 
 .logo {
@@ -53,7 +53,7 @@
 .logo-link {
   display: flex;
   align-items: center;
-  gap: 1rem; /* ✅ Add this line to create space between logo and name */
+  gap: 1rem;
   text-decoration: none;
 }
 
@@ -76,7 +76,7 @@
   font-size: 1.1rem;
   transition: color 0.3s ease;
   white-space: nowrap;
-  margin-top: 2px; /* only if needed */
+  margin-top: 2px;
 }
 
 .nav-link:hover {
