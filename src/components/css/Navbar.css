@@ -1,13 +1,50 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
+  background-color: #333;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 1rem;
+
+  border-bottom: 2px solid #222;
+}
+
+/* Left: logo + nav links */
+.nav-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem; 
+  row-gap: 0.75rem; 
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Right: buttons (book + login) */
+.nav-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.book-online,
+.login-toggle {
+  margin-top: 0.25rem;
+}
+
+
+/* logo and name */
 .logo-container {
   display: flex;
   align-items: center;
-  margin-right: 1rem;
-}
-
-.logo-link {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
+  white-space: nowrap;
 }
 
 .logo {
@@ -18,29 +55,15 @@
 }
 
 .company-name {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1.2rem;
   font-weight: 700;
   color: #ffd200;
-  white-space: nowrap;
-}
-.company-name:hover {
-  color: #0064a4; 
-  cursor: pointer;
-}
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #333;
-  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 3rem;
+.company-name:hover {
+  color: #0064a4;
+  cursor: pointer;
 }
 
 .nav-link {
@@ -48,6 +71,7 @@
   text-decoration: none;
   font-size: 1.1rem;
   transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -60,37 +84,38 @@
   padding: 0.5rem 1rem;
   border-radius: 5px;
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .book-online:hover {
   background-color: #ffed4a;
   color: #333;
-} 
+}
 
-/* Container for the dropdown */
+/* Dropdown Login */
 .login-dropdown {
   position: relative;
 }
 
 .login-toggle {
-  background: none;
+  background-color: #ffd700;
   border: none;
-  color: #ffffff;
+  color: #333;
   font-weight: bold;
   cursor: pointer;
-  padding: 0.5rem 2rem;
-  transition: color 0.3s ease;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  white-space: nowrap;
 }
 
 .login-toggle:hover {
-  color: #ffed4a;
+  background-color: #ffed4a;
 }
 
 .login-form-dropdown {
   position: absolute;
   top: 100%;
   right: 0;
-  transform: translateX(0%); 
   background-color: #222;
   border: 1px solid #444;
   border-radius: 5px;
@@ -100,7 +125,6 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
 }
 
-/* Form styling */
 .login-form-dropdown form {
   display: flex;
   flex-direction: column;
