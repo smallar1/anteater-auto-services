@@ -8,6 +8,7 @@ import ContactUs from './components/ContactUs';
 import Footer from './components/Footer'; 
 import Testimonials from './components/Testimonials';
 import Booking from './components/Bookings';
+import Register from './components/Register';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/bookings" element={<Booking />} />
+            <Route path="/register" element={<Register />} />
             {/* Insert other routes */}
           </Routes>
         </div>
