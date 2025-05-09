@@ -18,8 +18,8 @@ function Register() {
       <form className="register-form" onSubmit={handleSubmit}>
         <input type="text" name="name" placeholder="Full Name" required />
         <input type="email" name="email" placeholder="Email Address" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <input type="tel-number" name="tel" placeholder="Phone Number" required />
+        <input type="password" name="password" placeholder="Password" required minLength={8} />
+        <input type="tel-number" name="tel" placeholder="Phone Number" required pattern="\d{10}"/>
         <input type="Address" name="address" placeholder="Address" required />
         <button type="submit">Register</button>
       </form>
