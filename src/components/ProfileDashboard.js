@@ -1,5 +1,7 @@
 import React from 'react';
 import './css/ProfileDashboard.css';
+import { useNavigate } from 'react-router-dom';
+
 
 function ProfileDashboard() {
   const user = {
@@ -18,6 +20,8 @@ function ProfileDashboard() {
       { service: "Tire Rotation", date: "2025-03-20", status: "Completed" }
     ]
   };
+
+  const navigate = useNavigate();
 
   return (
     <div className="profile-dashboard">
@@ -51,7 +55,7 @@ function ProfileDashboard() {
 
       <div className="cta-banner">
         <p>⭐ Leave a review for your last service and get 10% off your next visit!</p>
-        <button>Leave Feedback</button>
+        <button onClick={() => navigate('/testimonials')}>Leave Feedback</button>
       </div>
     </div>
   );

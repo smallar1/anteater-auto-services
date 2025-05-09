@@ -24,7 +24,7 @@ function Navbar() {
         <Link to="/about" className="nav-link">About Us</Link>
         <Link to="/contact" className="nav-link">Contact Us</Link>
         <Link to="/testimonials" className="nav-link">Testimonials</Link>
-        <Link to="/account" className="nav-link">My Account</Link>
+        <Link to="/account" className="nav-link">Account</Link>
 
         <Link to="/bookings" className="nav-link book-online">Book Online</Link>
       </div>
