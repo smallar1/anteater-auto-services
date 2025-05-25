@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Services from './components/Services';
@@ -8,8 +9,8 @@ import ContactUs from './components/ContactUs';
 import Footer from './components/Footer'; 
 import Testimonials from './components/Testimonials';
 import Booking from './components/Bookings';
-import Register from './components/Register';
 import ProfileDashboard from './components/ProfileDashboard';
+import SignUp from './components/SignUp';
 
 import './App.css';
 
@@ -26,8 +27,20 @@ function App() {
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/bookings" element={<Booking />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/account" element={<ProfileDashboard />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route
+              path="/account"
+              element={
+                <>
+                  <SignedIn>
+                    <ProfileDashboard />
+                  </SignedIn>
+                  <SignedOut>
+                    <RedirectToSignIn />
+                  </SignedOut>
+                </>
+              }
+            />
             {/* Insert other routes */}
           </Routes>
         </div>
