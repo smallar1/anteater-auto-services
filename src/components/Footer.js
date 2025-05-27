@@ -5,7 +5,7 @@ function Footer() {
   return (
     <>
       <div className="footer-top-cta">
-        <h3>Zot! Zot! Zot! Exceptional Auto Care Starts Here - Book Your Spot! <br />Contact Us Today!</h3>
+        <h2>Zot! Zot! Zot! Exceptional Auto Care Starts Here - Book Your Spot! <br />Contact Us Today!</h2>
         <a href="/bookings" className="footer-book-button">Book Online</a>
       </div>
 

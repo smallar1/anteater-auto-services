@@ -26,7 +26,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-.mission-statement h2 {
+.mission-statement h1 {
   color: #333;
   margin-bottom: 1.5rem;
   text-align: center;
@@ -38,6 +38,7 @@
   line-height: 1.6;
   margin-bottom: 1rem;
   font-size: 1.1rem;
+  text-align: center;
 }
 
 .mission-statement p:last-child {

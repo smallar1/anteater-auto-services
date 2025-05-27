@@ -17,7 +17,6 @@ function Navbar() {
             <span className="company-name">Anteater Auto Service</span>
           </Link>
         </div>
-        <Link to="/" className="nav-link">Home</Link>
         <Link to="/services" className="nav-link">Services</Link>
         <Link to="/about" className="nav-link">About Us</Link>
         <Link to="/contact" className="nav-link">Contact Us</Link>
