@@ -17,12 +17,12 @@ const Testimonials = () => {
 
   const [formData, setFormData] = useState({
     name: '',
-    car: '',
-    text: ''
+    text: '',
+    car: ''
   });
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/reviews')
+    fetch('http://localhost:5050/api/reviews')
       .then(res => res.json())
       .then(data => setTestimonials(data));
   }, []);
@@ -37,7 +37,7 @@ const Testimonials = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.name && formData.text) {
-      await fetch('http://localhost:5000/api/reviews', {
+      await fetch('http://localhost:5050/api/reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -49,7 +49,7 @@ const Testimonials = () => {
           })
       });
       // Refresh testimonials
-      const res = await fetch('http://localhost:5000/api/reviews');
+      const res = await fetch('http://localhost:5050/api/reviews');
       const data = await res.json();
       setTestimonials(data);
       setFormData({ name: '', car: '', text: '' });

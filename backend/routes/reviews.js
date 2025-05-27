@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Review = require('../models/Review');
 
-// Create a review
+// API endpoint for interacting with different reviews
+
+// Creates a new review
 router.post('/', async (req, res) => {
   const { userId, name, car, text, rating } = req.body; // <-- add name and car here
   try {
