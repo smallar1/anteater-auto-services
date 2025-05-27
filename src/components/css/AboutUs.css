@@ -40,9 +40,10 @@
 
 /* Heading styles */
 .about-us-container h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2.75rem;               
+  margin-bottom: 2rem;              
   text-align: center;
+  font-weight: 700;
   color: #2c3e50;
 }
 
@@ -53,13 +54,16 @@
 }
 
 .about-us-content h2 {
-  margin-top: 1.5rem;
+  margin-top: 2.25rem;             
+  margin-bottom: 0.75rem;           
   color: #34495e;
   font-size: 1.5rem;
+  font-weight: 600;                 
+  border-bottom: 2px solid #eee;    
+  padding-bottom: 0.3rem;
 }
 
 .about-us-content p {
   margin-bottom: 1rem;
   color: #555;
-  text-align: justify;
 }
