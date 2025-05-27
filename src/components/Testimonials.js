@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './css/Testimonials.css';
 
 const Testimonials = () => {
@@ -21,6 +21,12 @@ const Testimonials = () => {
     text: ''
   });
 
+  useEffect(() => {
+    fetch('http://localhost:5000/api/reviews')
+      .then(res => res.json())
+      .then(data => setTestimonials(data));
+  }, []);
+
   const handleChange = (e) => {
     setFormData(prev => ({
       ...prev,
@@ -28,10 +34,24 @@ const Testimonials = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.name && formData.text) {
-      setTestimonials(prev => [formData, ...prev]);
+      await fetch('http://localhost:5000/api/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: formData.name,
+          name: formData.name,
+          car: formData.car,
+          text: formData.text,
+          rating: 5
+          })
+      });
+      // Refresh testimonials
+      const res = await fetch('http://localhost:5000/api/reviews');
+      const data = await res.json();
+      setTestimonials(data);
       setFormData({ name: '', car: '', text: '' });
     }
   };
