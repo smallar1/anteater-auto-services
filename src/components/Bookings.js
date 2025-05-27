@@ -21,12 +21,11 @@ function Booking() {
   return (
     <div className="booking-wrapper">
     <div className="booking-container" style={{ maxWidth: '400px', margin: '0 auto', padding: '1rem' }}>
-      <h2>Book an Appointment</h2>
+      <h1>Book an Appointment</h1>
 
-      {step === 1 && (
-        <>
-          <label>Select Service</label>
-          <select value={service} onChange={(e) => setService(e.target.value)} required>
+      {step === 1 && (<>
+          <label htmlFor="service">Select Service</label>
+          <select id="service" value={service} onChange={(e) => setService(e.target.value)} required>
             <option value="">-- Choose a Service --</option>
             <option value="Oil Change">Oil Change</option>
             <option value="Tire Rotation">Tire Rotation</option>
