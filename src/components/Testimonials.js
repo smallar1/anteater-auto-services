@@ -40,7 +40,7 @@ const Testimonials = () => {
     <section className="testimonials-section">
       <div className="testimonials-content">
         {/* Testimonials Heading */}
-        <h2>Customer Reviews</h2>
+        <h1>Customer Reviews</h1>
 
         {/* Testimonials Display */}
         <div className="testimonials-container">
@@ -53,32 +53,41 @@ const Testimonials = () => {
         </div>
 
         {/* Leave a Review Form Heading */}
-        <h3 className="form-heading">Leave a Review</h3>
+        <h2 className="form-heading">Leave a Review</h2>
 
         {/* Review Form */}
         <form className="testimonial-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Your name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-          <input
-            type="text"
-            name="car"
-            placeholder="Your car model (optional)"
-            value={formData.car}
-            onChange={handleChange}
-          />
-          <textarea
-            name="text"
-            placeholder="Your review"
-            value={formData.text}
-            onChange={handleChange}
-            required
-          ></textarea>
+          <div className="form-group">
+            <label htmlFor="name">Your Name</label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="car">Your Car Model <span className="optional">(optional)</span></label>
+            <input
+              id="car"
+              type="text"
+              name="car"
+              value={formData.car}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="text">Your Review</label>
+            <textarea
+              id="text"
+              name="text"
+              value={formData.text}
+              onChange={handleChange}
+              required
+            ></textarea>
+          </div>
           <button type="submit">Submit Review</button>
         </form>
       </div>

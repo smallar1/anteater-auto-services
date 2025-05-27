@@ -14,7 +14,7 @@
   }
   
   /* SECTION HEADING */
-  .testimonials-section h2 {
+  .testimonials-section h1 {
     font-size: 2em;
     margin-bottom: 30px;
     color: #333;
@@ -104,7 +104,7 @@
   }
   
   .testimonial-form button {
-    background-color: #007bff;
+    background-color: #0056b3;
     color: white;
     padding: 12px;
     border: none;
@@ -130,3 +130,53 @@
     }
   }
   
+  .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #222;
+  font-size: 0.95rem;
+}
+
+.optional {
+  color: #555;  /* or even #666 */
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+
+.testimonial-form input,
+.testimonial-form textarea {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.testimonial-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.testimonial-form button {
+  background-color: #0056b3;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.testimonial-form button:hover {
+  background-color: #004199;
+}
