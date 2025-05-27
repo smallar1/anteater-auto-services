@@ -55,7 +55,7 @@ function Services() {
               <div className="service-content">
                 <div className="service-front">
                   <span className="service-icon">{service.icon}</span>
-                  <h3>{service.title}</h3>
+                  <h2>{service.title}</h2>
                 </div>
                 <div className="service-back">
                   <p>{service.description}</p>
