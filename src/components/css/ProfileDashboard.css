@@ -46,7 +46,7 @@
 .profile-box button {
   margin-top: 1rem;
   padding: 0.5rem 1rem;
-  background-color: #007bff;
+  background-color: #0056b3;
   color: white;
   border: none;
   border-radius: 4px;
@@ -55,7 +55,7 @@
 }
 
 .profile-box button:hover {
-  background-color: #0056b3;
+  background-color: #007bff;
 }
 
 .sign-out-button {
@@ -94,14 +94,6 @@
   margin-top: 1rem;
 }
 
-.save-button {
-  background-color: #28a745;
-}
-
-.save-button:hover {
-  background-color: #218838;
-}
-
 .cancel-button {
   background-color: #dc3545 !important;
 }
@@ -135,7 +127,7 @@
 
 .cta-banner button {
   padding: 0.5rem 1rem;
-  background-color: #28a745;
+  background-color: #1e7e34;
   color: white;
   border: none;
   border-radius: 4px;
@@ -144,7 +136,7 @@
 }
 
 .cta-banner button:hover {
-  background-color: #218838;
+  background-color: #155724;
 }
 
 @media (max-width: 768px) {

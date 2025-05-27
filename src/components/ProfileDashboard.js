@@ -81,7 +81,7 @@ function ProfileDashboard() {
     <div className="profile-dashboard">
       <div className="dashboard-grid">
         <div className="profile-box box-1">
-          <h2>{user?.fullName || 'User'}</h2>
+          <h1>{user?.fullName || 'User'}</h1>
           <p>Email: {user?.primaryEmailAddress?.emailAddress}</p>
           
           {!isEditing ? (
@@ -133,7 +133,7 @@ function ProfileDashboard() {
         </div>
 
         <div className="profile-box box-2">
-          <h3>Upcoming Appointment</h3>
+          <h2>Upcoming Appointment</h2>
           <p>{upcomingBooking.service}</p>
           <p>{upcomingBooking.date} @ {upcomingBooking.time}</p>
           <p>Status: {upcomingBooking.status}</p>
@@ -141,7 +141,7 @@ function ProfileDashboard() {
         </div>
 
         <div className="profile-box box-3">
-          <h3>Recent Activity</h3>
+          <h2>Recent Activity</h2>
           <ul>
             {recentBookings.map((item, idx) => (
               <li key={idx}>{item.service} - {item.date} ({item.status})</li>
