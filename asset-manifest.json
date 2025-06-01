@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/Anteater-Auto-Service/static/css/main.1e567b7a.css",
+    "main.js": "/Anteater-Auto-Service/static/js/main.850a6900.js",
+    "static/media/Services.jpg": "/Anteater-Auto-Service/static/media/Services.7e0606a59c6a135a2bcc.jpg",
+    "static/media/Home.jpg": "/Anteater-Auto-Service/static/media/Home.5144408006249b7c3ccd.jpg",
+    "static/media/AboutUs.jpg": "/Anteater-Auto-Service/static/media/AboutUs.95f03322f16b743c9f36.jpg",
+    "static/media/Logo.png": "/Anteater-Auto-Service/static/media/Logo.63f6d97b9734c21c0653.png",
+    "index.html": "/Anteater-Auto-Service/index.html",
+    "main.1e567b7a.css.map": "/Anteater-Auto-Service/static/css/main.1e567b7a.css.map",
+    "main.850a6900.js.map": "/Anteater-Auto-Service/static/js/main.850a6900.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1e567b7a.css",
+    "static/js/main.850a6900.js"
+  ]
+}
