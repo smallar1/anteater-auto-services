@@ -1,6 +1,7 @@
 {
   "name": "my-react-app",
   "version": "0.1.0",
+  "homepage": "https://smallar1.github.io/Anteater-Auto-Service",
   "private": true,
   "dependencies": {
     "@clerk/clerk-react": "^5.31.6",
@@ -37,5 +38,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
