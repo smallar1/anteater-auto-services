@@ -24,9 +24,15 @@ function Footer() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img
-              src="https://maps.googleapis.com/maps/api/staticmap?center=Aldrich+Hall,+Irvine,+CA+92697&zoom=15&size=300x200&markers=color:red%7CAldrich+Hall,+Irvine,+CA+92697&key=YOUR_GOOGLE_MAPS_API_KEY"
-              alt="Map to our location"
+            <iframe
+              title="Anteater Auto Services Location"
+              width="300"
+              height="200"
+              style={{ border: 0 }}
+              loading="lazy"
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDEkWDoVxuYKeGP4txlIuTvHA-uCBkyO2I&q=Aldrich+Hall,Irvine+CA+92697"
             />
           </a>
         </div>
