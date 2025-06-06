@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './css/ProfileDashboard.css';
 import { useNavigate } from 'react-router-dom';
 import { useUser, useClerk } from '@clerk/clerk-react';
@@ -7,15 +7,112 @@ function ProfileDashboard() {
   const { user } = useUser();
   const { signOut } = useClerk();
   const navigate = useNavigate();
+
   const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState({
-    phoneNumber: user?.phoneNumbers?.[0]?.phoneNumber || '',
-    address: user?.publicMetadata?.address || ''
-  });
+  const [formData, setFormData] = useState({ phoneNumber: '', address: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  // Example booking data - in a real app, this would come from your backend
+  // Sync user and fetch from MongoDB on component mount
+  useEffect(() => {
+    const syncAndFetchUser = async () => {
+      if (!user?.primaryEmailAddress?.emailAddress) return;
+
+      const syncPayload = {
+        name: user.fullName,
+        email: user.primaryEmailAddress.emailAddress,
+        phone: user.phoneNumbers?.[0]?.phoneNumber || '',
+        address: user.publicMetadata?.address || ''
+      };
+
+      try {
+        // Sync the user to the database
+        await fetch('http://localhost:5050/api/users/sync', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(syncPayload)
+        });
+
+        // Now fetch the user from the database
+        const encodedEmail = encodeURIComponent(syncPayload.email);
+        const res = await fetch(`http://localhost:5050/api/users/email/${encodedEmail}`);
+        const data = await res.json();
+
+        if (res.ok) {
+          setFormData({
+            phoneNumber: data.phone || '',
+            address: data.address || ''
+          });
+        } else {
+          console.warn(data.error || 'User not found in DB');
+        }
+      } catch (err) {
+        console.error('Failed to sync/fetch user:', err);
+      }
+    };
+
+    syncAndFetchUser();
+  }, [user]);
+
+  const formatPhoneNumber = (number) => {
+    const cleaned = number.replace(/\D/g, '');
+    if (cleaned.length === 10) {
+      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+    }
+    return number;
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+
+    try {
+      const cleanedNumber = formData.phoneNumber.replace(/\D/g, '');
+      if (cleanedNumber && !/^\d{10}$/.test(cleanedNumber)) {
+        setError('Please enter a valid 10-digit phone number');
+        return;
+      }
+
+      const formattedNumber = formatPhoneNumber(cleanedNumber);
+      const encodedEmail = encodeURIComponent(user.primaryEmailAddress.emailAddress);
+
+      const res = await fetch(`http://localhost:5050/api/users/email/${encodedEmail}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: formattedNumber,
+          address: formData.address
+        })
+      });
+
+      if (res.ok) {
+        setFormData({
+          phoneNumber: formattedNumber,
+          address: formData.address
+        });
+        setSuccess('Profile updated successfully!');
+        setIsEditing(false);
+      } else {
+        const data = await res.json();
+        setError(data.error || 'Failed to update user');
+      }
+    } catch (err) {
+      console.error(err);
+      setError('An error occurred while updating.');
+    }
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
+
   const upcomingBooking = {
     service: "Brake Inspection",
     date: "2025-05-10",
@@ -28,62 +125,13 @@ function ProfileDashboard() {
     { service: "Tire Rotation", date: "2025-03-20", status: "Completed" }
   ];
 
-  const formatPhoneNumber = (number) => {
-    const cleaned = number.replace(/\D/g, '');
-    if (cleaned.length === 10) {
-      return `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
-    }
-    return number;
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSuccess('');
-
-    try {
-      // Validate phone number
-      const cleanedNumber = formData.phoneNumber.replace(/\D/g, '');
-      if (cleanedNumber && !/^\d{10}$/.test(cleanedNumber)) {
-        setError('Please enter a valid 10-digit phone number');
-        return;
-      }
-
-      // Format phone number before saving
-      setFormData(prev => ({
-        ...prev,
-        phoneNumber: formatPhoneNumber(cleanedNumber)
-      }));
-
-      // Update local state
-      setSuccess('Profile updated successfully!');
-      setIsEditing(false);
-      alert('This is temporary until we have a database set up');
-    } catch (err) {
-      setError(err.message || 'Failed to update profile. Please try again.');
-    }
-  };
-
-  const handleSignOut = async () => {
-    await signOut();
-    navigate('/');
-  };
-
   return (
     <div className="profile-dashboard">
       <div className="dashboard-grid">
         <div className="profile-box box-1">
           <h1>{user?.fullName || 'User'}</h1>
           <p>Email: {user?.primaryEmailAddress?.emailAddress}</p>
-          
+
           {!isEditing ? (
             <>
               <p>Phone: {formData.phoneNumber || 'Not provided'}</p>
@@ -106,7 +154,7 @@ function ProfileDashboard() {
                   title="Please enter a 10-digit phone number"
                 />
               </div>
-              
+
               <div className="form-group">
                 <label htmlFor="address">Address:</label>
                 <input

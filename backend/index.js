@@ -16,6 +16,9 @@ app.use(express.json());
 const reviewsRouter = require('./routes/reviews');
 app.use('/api/reviews', reviewsRouter);
 
+const usersRouter = require('./routes/users');
+app.use('/api/users', usersRouter);
+
 // 🔐 Clerk middleware to protect routes
 app.use(ClerkExpressWithAuth({}));
 
