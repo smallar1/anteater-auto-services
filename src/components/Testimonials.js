@@ -22,7 +22,7 @@ const Testimonials = () => {
   });
 
   useEffect(() => {
-    fetch('http://localhost:5050/api/reviews')
+    fetch('http://localhost:5050/api/reviews')  // change to aws address in production
       .then(res => res.json())
       .then(data => setTestimonials(data));
   }, []);
@@ -37,7 +37,7 @@ const Testimonials = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.name && formData.text) {
-      await fetch('http://localhost:5050/api/reviews', {
+      await fetch('http://localhost:5050/api/reviews', {  // change to aws address in production
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -49,7 +49,7 @@ const Testimonials = () => {
           })
       });
       // Refresh testimonials
-      const res = await fetch('http://localhost:5050/api/reviews');
+      const res = await fetch('http://localhost:5050/api/reviews'); // change to aws address in production
       const data = await res.json();
       setTestimonials(data);
       setFormData({ name: '', car: '', text: '' });
