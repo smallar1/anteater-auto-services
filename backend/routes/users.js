@@ -12,10 +12,17 @@ router.post('/sync', async (req, res) => {
     let user = await User.findOne({ email });
 
     if (!user) {
-      // Create new user
-      user = new User({ name, email, phone, address });
+      // Create new user with default information
+      const defaultUser = {
+        name: name || 'New User',
+        email: email,
+        phone: phone || '(555) 555-5555',  // Default phone number
+        address: address || '123 UCI Drive, Irvine, CA 92697'  // Default address
+      };
+      
+      user = new User(defaultUser);
       await user.save();
-      return res.status(201).json({ message: 'User created', user });
+      return res.status(201).json({ message: 'User created with default information', user: defaultUser });
     } else {
       // Optional update if info differs
       const updates = {};

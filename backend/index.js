@@ -33,6 +33,6 @@ app.get('/api/profile', (req, res) => {
   res.json({ userId, sessionId, user });
 });
 
-app.listen(5050, '0.0.0.0',  () => {
+app.listen(5050, '0.0.0.0',   () => {
   console.log('✅ Backend server running at http://localhost:5050');
 });

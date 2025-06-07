@@ -12,6 +12,7 @@ function ProfileDashboard() {
   const [formData, setFormData] = useState({ phoneNumber: '', address: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isNewUser, setIsNewUser] = useState(false);
 
   // Sync user and fetch from MongoDB on component mount
   useEffect(() => {
@@ -27,11 +28,18 @@ function ProfileDashboard() {
 
       try {
         // Sync the user to the database
-        await fetch('http://localhost:5050/api/users/sync', {
+        const syncResponse = await fetch('http://localhost:5050/api/users/sync', { // 3.144.135.133:5050 for production
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(syncPayload)
         });
+
+        const syncData = await syncResponse.json();
+        
+        // Check if this is a new user
+        if (syncResponse.status === 201) {
+          setIsNewUser(true);
+        }
 
         // Now fetch the user from the database
         const encodedEmail = encodeURIComponent(syncPayload.email);
@@ -131,6 +139,12 @@ function ProfileDashboard() {
         <div className="profile-box box-1">
           <h1>{user?.fullName || 'User'}</h1>
           <p>Email: {user?.primaryEmailAddress?.emailAddress}</p>
+
+          {isNewUser && (
+            <div className="new-user-message">
+              <p>Welcome! Please update your contact information below.</p>
+            </div>
+          )}
 
           {!isEditing ? (
             <>

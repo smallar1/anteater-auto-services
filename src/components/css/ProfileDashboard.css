@@ -139,6 +139,21 @@
   background-color: #155724;
 }
 
+.new-user-message {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.new-user-message p {
+  margin: 0;
+  font-weight: 500;
+}
+
 @media (max-width: 768px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
