@@ -1,100 +1,171 @@
 import React, { useState } from 'react';
 import './css/Bookings.css';
+import { useUser } from '@clerk/clerk-react';
 
-function Booking() {
+function Bookings() {
+  const { user } = useUser();
+
   const [step, setStep] = useState(1);
   const [service, setService] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(user?.primaryEmailAddress?.emailAddress || '');
 
-  const handleNext = () => setStep(prev => prev + 1);
-  const handleBack = () => setStep(prev => prev - 1);
-  const handleSubmit = (e) => {
+  const handleNext = () => setStep((prev) => prev + 1);
+  const handleBack = () => setStep((prev) => prev - 1);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ service, date, time, name, email });
-    alert("Appointment booked!");
-    // Add backend submission here if needed
+
+    const bookingData = {
+      userEmail: email,
+      service,
+      date,
+      time,
+      status: 'Confirmed'
+    };
+
+    try {
+      const res = await fetch('http://localhost:5050/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(bookingData)
+      });
+
+      if (res.ok) {
+        alert('✅ Appointment booked!');
+        setStep(1);
+        setService('');
+        setDate('');
+        setTime('');
+        setName('');
+        setEmail(user?.primaryEmailAddress?.emailAddress || '');
+      } else {
+        const errorData = await res.json();
+        alert(`❌ Booking failed: ${errorData.error}`);
+      }
+    } catch (err) {
+      console.error('Booking error:', err);
+      alert('❌ Network error. Try again later.');
+    }
   };
 
   return (
     <div className="booking-wrapper">
-    <div className="booking-container" style={{ maxWidth: '400px', margin: '0 auto', padding: '1rem' }}>
-      <h1>Book an Appointment</h1>
+      <div
+        className="booking-container"
+        style={{ maxWidth: '400px', margin: '0 auto', padding: '1rem' }}
+      >
+        <h1>Book an Appointment</h1>
 
-      {step === 1 && (<>
-          <label htmlFor="service">Select Service</label>
-          <select id="service" value={service} onChange={(e) => setService(e.target.value)} required>
-            <option value="">-- Choose a Service --</option>
-            <option value="Oil Change">Oil Change</option>
-            <option value="Tire Rotation">Tire Rotation</option>
-            <option value="Brake Inspection">Brake Inspection</option>
-          </select>
-          <button onClick={handleNext} disabled={!service}>Next</button>
-        </>
-      )}
+        {step === 1 && (
+          <>
+            <label htmlFor="service">Select Service</label>
+            <select
+              id="service"
+              value={service}
+              onChange={(e) => setService(e.target.value)}
+              required
+            >
+              <option value="">-- Choose a Service --</option>
+              <option value="Oil Change">Oil Change</option>
+              <option value="Tire Rotation">Tire Rotation</option>
+              <option value="Brake Inspection">Brake Inspection</option>
+            </select>
+            <button onClick={handleNext} disabled={!service}>
+              Next
+            </button>
+          </>
+        )}
 
-      {step === 2 && (
-        <>
-          <label>Select Date</label>
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-          <div style={{ marginTop: '1rem' }}>
-            <button onClick={handleBack}>Back</button>
-            <button onClick={handleNext} disabled={!date}>Next</button>
-          </div>
-        </>
-      )}
-
-      {step === 3 && (
-        <>
-          <label>Select Time</label>
-          <div style={{ display: 'grid', gap: '0.5rem' }}>
-            {['09:00', '10:00', '11:00', '13:00', '14:00', '15:00'].map(t => (
-              <button
-                key={t}
-                type="button"
-                className={time === t ? 'selected' : ''}
-                onClick={() => setTime(t)}
-                style={{
-                  background: time === t ? '#ffd700' : '#eee',
-                  padding: '0.5rem',
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
-                }}
-              >
-                {t}
+        {step === 2 && (
+          <>
+            <label>Select Date</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+            />
+            <div style={{ marginTop: '1rem' }}>
+              <button onClick={handleBack}>Back</button>
+              <button onClick={handleNext} disabled={!date}>
+                Next
               </button>
-            ))}
-          </div>
-          <div style={{ marginTop: '1rem' }}>
-            <button onClick={handleBack}>Back</button>
-            <button onClick={handleNext} disabled={!time}>Next</button>
-          </div>
-        </>
-      )}
+            </div>
+          </>
+        )}
 
-      {step === 4 && (
-        <form onSubmit={handleSubmit}>
-          <label>Name</label>
-          <input value={name} onChange={(e) => setName(e.target.value)} required />
+        {step === 3 && (
+          <>
+            <label>Select Time</label>
+            <div style={{ display: 'grid', gap: '0.5rem' }}>
+              {['09:00', '10:00', '11:00', '13:00', '14:00', '15:00'].map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  className={time === t ? 'selected' : ''}
+                  onClick={() => setTime(t)}
+                  style={{
+                    background: time === t ? '#ffd700' : '#eee',
+                    padding: '0.5rem',
+                    border: '1px solid #ccc',
+                    borderRadius: '4px'
+                  }}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+            <div style={{ marginTop: '1rem' }}>
+              <button onClick={handleBack}>Back</button>
+              <button onClick={handleNext} disabled={!time}>
+                Next
+              </button>
+            </div>
+          </>
+        )}
 
-          <label>Email</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        {step === 4 && (
+          <form onSubmit={handleSubmit}>
+            <label>Name</label>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
 
-          <div style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
-            <p><strong>Service:</strong> {service}</p>
-            <p><strong>Date:</strong> {date}</p>
-            <p><strong>Time:</strong> {time}</p>
-          </div>
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              disabled // auto-filled from Clerk
+            />
 
-          <button onClick={handleBack} type="button">Back</button>
-          <button type="submit">Confirm Booking</button>
-        </form>
-      )}
-    </div>
+            <div style={{ marginTop: '1rem', marginBottom: '1.5rem' }}>
+              <p>
+                <strong>Service:</strong> {service}
+              </p>
+              <p>
+                <strong>Date:</strong> {date}
+              </p>
+              <p>
+                <strong>Time:</strong> {time}
+              </p>
+            </div>
+
+            <button onClick={handleBack} type="button">
+              Back
+            </button>
+            <button type="submit">Confirm Booking</button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }
 
-export default Booking;
+export default Bookings;

@@ -1,3 +1,4 @@
+/* General Dashboard Layout */
 .profile-dashboard {
   padding: 2rem;
   max-width: 1200px;
@@ -14,6 +15,17 @@
   margin-bottom: 2rem;
 }
 
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "box1"
+      "box2"
+      "box3";
+  }
+}
+
+/* Profile Boxes */
 .profile-box {
   background: white;
   padding: 1.5rem;
@@ -21,17 +33,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.box-1 {
-  grid-area: box1;
-}
-
-.box-2 {
-  grid-area: box2;
-}
-
-.box-3 {
-  grid-area: box3;
-}
+.box-1 { grid-area: box1; }
+.box-2 { grid-area: box2; }
+.box-3 { grid-area: box3; }
 
 .profile-box h2 {
   margin-bottom: 1rem;
@@ -43,7 +47,10 @@
   color: #666;
 }
 
-.profile-box button {
+/* Buttons */
+.profile-box button,
+.cta-banner button,
+.blue-button {
   margin-top: 1rem;
   padding: 0.5rem 1rem;
   background-color: #0056b3;
@@ -54,7 +61,9 @@
   transition: background-color 0.2s;
 }
 
-.profile-box button:hover {
+.profile-box button:hover,
+.cta-banner button:hover,
+.blue-button:hover {
   background-color: #007bff;
 }
 
@@ -67,6 +76,7 @@
   background-color: #c82333 !important;
 }
 
+/* Form Styling */
 .edit-form {
   margin-top: 1rem;
 }
@@ -81,11 +91,31 @@
   color: #333;
 }
 
-.form-group input {
+.form-group input,
+.form-select {
   width: 100%;
   padding: 0.5rem;
   border: 1px solid #ddd;
   border-radius: 4px;
+  background-color: white;
+}
+
+/* Cancel Button for Editing and Rescheduling */
+.cancel-button,
+.cancel-reschedule-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-left: 1rem;
+}
+
+.cancel-button:hover,
+.cancel-reschedule-button:hover {
+  background-color: #c82333;
 }
 
 .button-group {
@@ -94,14 +124,7 @@
   margin-top: 1rem;
 }
 
-.cancel-button {
-  background-color: #dc3545 !important;
-}
-
-.cancel-button:hover {
-  background-color: #c82333 !important;
-}
-
+/* Feedback/Status Messages */
 .error-message {
   color: #dc3545;
   margin-top: 0.5rem;
@@ -112,6 +135,7 @@
   margin-top: 0.5rem;
 }
 
+/* CTA Banner */
 .cta-banner {
   background: #f8f9fa;
   padding: 1.5rem;
@@ -125,20 +149,7 @@
   color: #333;
 }
 
-.cta-banner button {
-  padding: 0.5rem 1rem;
-  background-color: #1e7e34;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.cta-banner button:hover {
-  background-color: #155724;
-}
-
+/* New User Message */
 .new-user-message {
   background-color: #fff3cd;
   border: 1px solid #ffeeba;
@@ -154,12 +165,86 @@
   font-weight: 500;
 }
 
-@media (max-width: 768px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "box1"
-      "box2"
-      "box3";
-  }
+/* Booking History Page */
+.booking-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.booking-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 2rem 2rem 3rem;
+  max-width: 700px;
+  width: 100%;
+  text-align: left;
+}
+
+.booking-container h1 {
+  margin-bottom: 1.5rem;
+}
+
+.history-section {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1.5rem;
+}
+
+.history-section h3 {
+  margin: 0 0 0.75rem;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+
+.history-list li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.status {
+  font-weight: bold;
+}
+
+.status.confirmed { color: #007bff; }
+.status.completed { color: #28a745; }
+.status.cancelled { color: #dc3545; }
+
+.empty-message {
+  font-style: italic;
+  color: #666;
+}
+
+.service {
+  font-weight: 500;
+}
+
+
+.profile-box .cancel-appointment-button {
+  background-color: #dc3545 !important;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profile-box .cancel-appointment-button:hover {
+  background-color: #c82333 !important;
+}
+
+.cancel-button {
+  background-color: #dc3545 !important;
+}
+
+.cancel-button:hover {
+  background-color: #c82333 !important;
 }

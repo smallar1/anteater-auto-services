@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import Testimonials from './components/Testimonials';
 import Booking from './components/Bookings';
 import ProfileDashboard from './components/ProfileDashboard';
+import BookingHistory from './components/BookingHistory';
 
 import './App.css';
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/bookings" element={<Booking />} />
+            <Route path="/history" element={<BookingHistory />} />
             <Route
               path="/account"
               element={

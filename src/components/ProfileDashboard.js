@@ -14,6 +14,13 @@ function ProfileDashboard() {
   const [success, setSuccess] = useState('');
   const [isNewUser, setIsNewUser] = useState(false);
 
+  const [upcomingBooking, setUpcomingBooking] = useState(null);
+  const [recentBookings, setRecentBookings] = useState([]);
+
+  const [showReschedule, setShowReschedule] = useState(false);
+  const [newDate, setNewDate] = useState('');
+  const [newTime, setNewTime] = useState('');
+
   // Sync user and fetch from MongoDB on component mount
   useEffect(() => {
     const syncAndFetchUser = async () => {
@@ -28,20 +35,13 @@ function ProfileDashboard() {
 
       try {
         // Sync the user to the database
-        const syncResponse = await fetch('http://localhost:5050/api/users/sync', { // 3.144.135.133:5050 for production
+        await fetch('http://localhost:5050/api/users/sync', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(syncPayload)
         });
 
-        const syncData = await syncResponse.json();
-        
         // Check if this is a new user
-        if (syncResponse.status === 201) {
-          setIsNewUser(true);
-        }
-
-        // Now fetch the user from the database
         const encodedEmail = encodeURIComponent(syncPayload.email);
         const res = await fetch(`http://localhost:5050/api/users/email/${encodedEmail}`);
         const data = await res.json();
@@ -54,6 +54,32 @@ function ProfileDashboard() {
         } else {
           console.warn(data.error || 'User not found in DB');
         }
+
+        // Fetch user's bookings
+        const fetchBookings = async (userEmail) => {
+          try {
+            const encoded = encodeURIComponent(userEmail);
+            const response = await fetch(`http://localhost:5050/api/bookings/email/${encoded}`);
+            const bookings = await response.json();
+
+            if (response.ok) {
+              const upcoming = bookings.find(b =>
+                new Date(b.date) >= new Date() && b.status === 'Confirmed'
+              );
+              const recent = bookings
+                .filter(b => b.status === 'Completed')
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 2);
+
+              setUpcomingBooking(upcoming);
+              setRecentBookings(recent);
+            }
+          } catch (err) {
+            console.error('Failed to fetch bookings:', err);
+          }
+        };
+
+        await fetchBookings(syncPayload.email);
       } catch (err) {
         console.error('Failed to sync/fetch user:', err);
       }
@@ -121,18 +147,6 @@ function ProfileDashboard() {
     navigate('/');
   };
 
-  const upcomingBooking = {
-    service: "Brake Inspection",
-    date: "2025-05-10",
-    time: "10:00 AM",
-    status: "Confirmed"
-  };
-
-  const recentBookings = [
-    { service: "Oil Change", date: "2025-04-15", status: "Completed" },
-    { service: "Tire Rotation", date: "2025-03-20", status: "Completed" }
-  ];
-
   return (
     <div className="profile-dashboard">
       <div className="dashboard-grid">
@@ -196,20 +210,136 @@ function ProfileDashboard() {
 
         <div className="profile-box box-2">
           <h2>Upcoming Appointment</h2>
-          <p>{upcomingBooking.service}</p>
-          <p>{upcomingBooking.date} @ {upcomingBooking.time}</p>
-          <p>Status: {upcomingBooking.status}</p>
-          <button>Reschedule</button>
+          {upcomingBooking ? (
+            <>
+              <p>{upcomingBooking.service}</p>
+              <p>{upcomingBooking.date} @ {upcomingBooking.time}</p>
+              <p>Status: {upcomingBooking.status}</p>
+
+              {!showReschedule ? (
+                <div className="button-group">
+                  <button
+                    className="submit-button"
+                    onClick={() => setShowReschedule(true)}
+                  >
+                    Reschedule
+                  </button>
+
+                  <button
+                    className="cancel-button"
+                    onClick={async () => {
+                      const confirmCancel = window.confirm("Are you sure you want to cancel your appointment?");
+                      if (!confirmCancel) return;
+                      const res = await fetch(`http://localhost:5050/api/bookings/${upcomingBooking._id}`, {
+                        method: 'DELETE',
+                      });
+
+                      if (res.ok) {
+                        alert("Appointment cancelled.");
+                        setUpcomingBooking(null);
+                        window.location.reload(); // Refresh to hide the cancelled appointment
+                      } else {
+                        alert("Failed to cancel appointment.");
+                      }
+                    }}
+                  >
+                    Cancel Appointment
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <div className="reschedule-inputs">
+                    <div className="form-group">
+                      <label htmlFor="newDate">New Date:</label>
+                      <input
+                        type="date"
+                        id="newDate"
+                        value={newDate}
+                        onChange={(e) => setNewDate(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="newTime">New Time:</label>
+                      <select
+                        id="newTime"
+                        value={newTime}
+                        onChange={(e) => setNewTime(e.target.value)}
+                        className="form-select"
+                      >
+                        <option value="">-- Select Time --</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="button-group">
+                    <button
+                      className="submit-button"
+                      onClick={async () => {
+                        const res = await fetch(
+                          `http://localhost:5050/api/bookings/${upcomingBooking._id}`,
+                          {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ date: newDate, time: newTime })
+                          }
+                        );
+
+                        if (res.ok) {
+                          alert('Appointment rescheduled!');
+                          setShowReschedule(false);
+                          setNewDate('');
+                          setNewTime('');
+                          window.location.reload();
+                        } else {
+                          alert('Failed to reschedule.');
+                        }
+                      }}
+                      disabled={!newDate || !newTime}
+                    >
+                      Submit
+                    </button>
+
+                    <button
+                      type="button"
+                      className="cancel-appointment-button"
+                      onClick={() => {
+                        setShowReschedule(false);
+                        setNewDate('');
+                        setNewTime('');
+                      }}
+                      aria-label="Cancel Rescheduling"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+            </>
+          ) : (
+            <p>No upcoming appointments.</p>
+          )}
         </div>
+
 
         <div className="profile-box box-3">
           <h2>Recent Activity</h2>
-          <ul>
-            {recentBookings.map((item, idx) => (
-              <li key={idx}>{item.service} - {item.date} ({item.status})</li>
-            ))}
-          </ul>
-          <button>View Full History</button>
+          {recentBookings.length > 0 && (
+            <ul>
+              {recentBookings.map((item, idx) => (
+                <li key={idx}>{item.service} - {item.date} ({item.status})</li>
+              ))}
+            </ul>
+          )}
+          <button onClick={() => navigate('/history')}>
+            View Full History
+          </button>
         </div>
       </div>
 

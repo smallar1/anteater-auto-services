@@ -19,6 +19,10 @@ app.use('/api/reviews', reviewsRouter);
 const usersRouter = require('./routes/users');
 app.use('/api/users', usersRouter);
 
+const bookingsRouter = require('./routes/bookings');
+app.use('/api/bookings', bookingsRouter);
+
+
 // 🔐 Clerk middleware to protect routes
 app.use(ClerkExpressWithAuth({}));
 
