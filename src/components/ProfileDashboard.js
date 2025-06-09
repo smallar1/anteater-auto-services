@@ -62,18 +62,31 @@ function ProfileDashboard() {
             const response = await fetch(`http://localhost:5050/api/bookings/email/${encoded}`);
             const bookings = await response.json();
 
-            if (response.ok) {
-              const upcoming = bookings.find(b =>
-                new Date(b.date) >= new Date() && b.status === 'Confirmed'
-              );
-              const recent = bookings
-                .filter(b => b.status === 'Completed')
-                .sort((a, b) => new Date(b.date) - new Date(a.date))
-                .slice(0, 2);
+          if (response.ok) {
+            const now = new Date();
 
-              setUpcomingBooking(upcoming);
-              setRecentBookings(recent);
-            }
+            const upcomingList = bookings
+              .filter(b => {
+                const bookingDateTime = new Date(`${b.date}T${b.time}`);
+                return bookingDateTime >= now && b.status === 'Confirmed';
+              })
+              .sort((a, b) => {
+                const dateA = new Date(`${a.date}T${a.time}`);
+                const dateB = new Date(`${b.date}T${b.time}`);
+                return dateA - dateB;
+              });
+
+            const upcoming = upcomingList[0] || null;
+
+            const recent = bookings
+              .filter(b => b.status === 'Completed')
+              .sort((a, b) => new Date(b.date) - new Date(a.date))
+              .slice(0, 2);
+
+            setUpcomingBooking(upcoming);
+            setRecentBookings(recent);
+          }
+
           } catch (err) {
             console.error('Failed to fetch bookings:', err);
           }
